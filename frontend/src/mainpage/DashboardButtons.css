@@ -1,0 +1,111 @@
+/* DashboardButtons.css */
+
+:root {
+  --db-bg: #0f172a;           /* slate-900 */
+  --db-card: #111827;         /* gray-900 */
+  --db-border: #1f2937;       /* gray-800 */
+  --db-text: #e5e7eb;         /* gray-200 */
+  --db-muted: #9ca3af;        /* gray-400 */
+  --db-primary: #2563eb;      /* blue-600 */
+  --db-primary-hover: #1d4ed8;/* blue-700 */
+  --db-focus: #93c5fd;        /* blue-300 */
+}
+
+.db-container {
+  max-width: 840px;
+  margin: 32px auto;
+  padding-bottom: 24px;
+  /* padding-left: 24px;
+  padding-right: 24px; */
+  background: var(--db-card);
+  border: 1px solid var(--db-border);
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+.db-title {
+  margin: 0 0 16px;
+  border-radius: 16px 16px 0px 0px;
+  padding: 5px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--db-text);
+  letter-spacing: 0.2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+}
+
+.db-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 24px 0px 24px;
+}
+
+@media (max-width: 900px) {
+  .db-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .db-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.db-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--db-border);
+  background: linear-gradient(180deg, #111827 0%, #0b1220 100%);
+  color: var(--db-text);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    transform 120ms ease,
+    background 120ms ease,
+    border-color 1000ms ease,
+    box-shadow 1200ms ease;
+}
+
+.db-button:hover {
+  background: linear-gradient(180deg, #12213a 0%, #0b1530 100%);
+  border-color: #24364d;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+}
+
+.db-button:active {
+  transform: translateY(1px) scale(0.995);
+}
+
+.db-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.6);
+}
+
+.db-button-label {
+  color: var(--db-text);
+}
+
+/* Optional variants if you want different colors per button */
+.db-button:nth-child(1) { --accent: #22c55e; }   /* Attendance */
+.db-button:nth-child(2) { --accent: #06b6d4; }   /* Student */
+.db-button:nth-child(3) { --accent: #f59e0b; }   /* Library */
+.db-button:nth-child(4) { --accent: #ef4444; }   /* Event Management */
+.db-button:nth-child(5) { --accent: #8b5cf6; }   /* Grades Management */
+
+.db-button:hover {
+  border-color: var(--accent, var(--db-primary));
+}

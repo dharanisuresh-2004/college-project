@@ -61,6 +61,7 @@ public class LibrarySvcImpl {
             library.setBorrowerName(student.getName());
             library.setStatus("borrowed");
             library.setReturned(false);
+            library.setDueDays(10L);
             library.setDueDate();
         }
         return libraryRepo.save(library);
@@ -75,10 +76,11 @@ public class LibrarySvcImpl {
             throw new EntityNotFoundException(apiError, bookId);
         } else {
             library.setBorrowerName(null);
-            library.setStatus("active");
+            library.setStatus("available");
             library.setReturned(true);
-            library.setDueDate(null);
+            library.setCheckinDate(Instant.now());
             library.setFineAmount();
+            library.setDueDate(null);
         }
         return libraryRepo.save(library);
     }

@@ -1,0 +1,114 @@
+/* Overlay Styles (for editing student) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 14, 39, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.overlay-content {
+    background-color: var(--dark-secondary);
+    padding: 30px;
+    border-radius: 12px;
+    max-height: 90vh;
+    overflow-y: auto;
+    width: 450px;
+    box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-purple);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.overlay-content h3 {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-purple);
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+}
+
+/* Inputs and Selects */
+.overlay-content input,
+.overlay-content select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--neon-cyan);
+    background-color: var(--dark-bg);
+    color: var(--neon-cyan);
+    font-size: 1em;
+    outline: none;
+    transition: all 0.2s ease;
+    text-shadow: 0 0 5px var(--neon-cyan);
+}
+
+.overlay-content input:focus,
+.overlay-content select:focus {
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-purple);
+}
+
+/* Checkbox */
+.overlay-content label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--neon-green);
+    text-shadow: 0 0 5px var(--neon-green);
+    font-weight: bold;
+}
+
+/* Buttons */
+.overlay-content button {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    background-color: var(--neon-pink);
+    color: var(--dark-bg);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-shadow: 0 0 5px var(--dark-bg);
+}
+
+.overlay-content button:hover {
+    background-color: var(--neon-purple);
+    color: var(--neon-cyan);
+    box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-purple);
+}
+
+/* Save / Cancel Button Container */
+.overlay-content > div {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* Scrollbar for overlay */
+.overlay-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.overlay-content::-webkit-scrollbar-thumb {
+    background-color: var(--neon-pink);
+    border-radius: 4px;
+}
+
+.overlay-content::-webkit-scrollbar-track {
+    background-color: var(--dark-secondary);
+}
+
+/* Responsive */
+@media screen and (max-width: 500px) {
+    .overlay-content {
+        width: 90%;
+        padding: 20px;
+    }
+}

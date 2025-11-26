@@ -81,20 +81,29 @@ public class Library {
 
     public void setDueDate() {
         // Calculate due date 10 days from checkout date
-        this.dueDate = this.checkoutDate.plus(this.dueDays, ChronoUnit.DAYS);
+        // this.dueDate = this.checkoutDate.plus(this.dueDays, ChronoUnit.DAYS);
+        if (checkoutDate != null && dueDays != null) {
+            this.dueDate = this.checkoutDate.plus(dueDays, ChronoUnit.DAYS);
+        }
     }
 
     public void setFineAmount() {
-        if (checkinDate != null && checkinDate.isAfter(dueDate)) {
+        // if (checkinDate != null && checkinDate.isAfter(dueDate)) {
+        //     long daysOverdue = ChronoUnit.DAYS.between(dueDate, checkinDate);
+        //     if (daysOverdue == 0) {
+        //         this.fineAmount = 10L;
+        //     } else {
+        //         this.fineAmount = daysOverdue * 10;
+        //     }
+        //     // $1 per day overdue
+        // } else {
+        //     this.fineAmount = 0L; // No fine
+        // }
+        if (dueDate != null && checkinDate != null && checkinDate.isAfter(dueDate)) {
             long daysOverdue = ChronoUnit.DAYS.between(dueDate, checkinDate);
-            if (daysOverdue == 0) {
-                this.fineAmount = 10L;
-            } else {
-                this.fineAmount = daysOverdue * 10;
-            }
-            // $1 per day overdue
+            this.fineAmount = daysOverdue == 0 ? 10L : daysOverdue * 10L;
         } else {
-            this.fineAmount = 0L; // No fine
+            this.fineAmount = 0L;
         }
     }
 }

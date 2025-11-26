@@ -1,0 +1,75 @@
+.borrowed-books-page {
+  background: #0d0d0d;
+  color: #e0e0e0;
+  min-height: 100vh;
+  padding: 24px;
+  font-family: Arial, sans-serif;
+}
+
+.borrowed-books-page h1 {
+  color: #39ff14;
+  text-shadow: 0 0 8px #39ff14, 0 0 16px #39ff14;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.borrowed-books-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1a1a1a;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 12px #00ffff;
+}
+
+.borrowed-books-table th,
+.borrowed-books-table td {
+  padding: 12px;
+  border: 1px solid #333;
+  text-align: left;
+}
+
+.borrowed-books-table th {
+  background: #0d0d0d;
+  color: #00ffff;
+  text-shadow: 0 0 6px #00ffff;
+}
+
+.borrowed-books-table tr:nth-child(even) {
+  background: #141414;
+}
+
+.borrowed-books-table tr:hover {
+  background: #222;
+}
+
+.borrowed-books-table button {
+  background: #ff00ff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.borrowed-books-table button:hover {
+  background: #ff33ff;
+  box-shadow: 0 0 8px #ff00ff, 0 0 16px #ff00ff;
+}
+
+/* Utility states */
+.loading {
+  color: #00ffff;
+  text-shadow: 0 0 6px #00ffff;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.error {
+  color: #ff3131;
+  text-shadow: 0 0 6px #ff3131;
+  text-align: center;
+  margin-top: 20px;
+}

@@ -1,0 +1,131 @@
+/* Fullscreen overlay background */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* semi-transparent dark backdrop */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999; /* ensure it sits above other content */
+}
+
+/* Centered modal box */
+.overlay-content {
+  /* background: #fff; */
+  padding: 24px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  animation: fadeInScale 0.3s ease;
+}
+
+/* Heading */
+.overlay-content h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+/* Label and select */
+.overlay-content label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.overlay-content select {
+  margin-left: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Grade rows */
+.grades-inputs {
+  margin-bottom: 16px;
+}
+
+.grade-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.grade-row input {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.grade-row button {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.grade-row button:hover {
+  background: #c0392b;
+}
+
+/* Action buttons */
+.overlay-content button {
+  margin-right: 8px;
+  margin-top: 8px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.overlay-content button:hover {
+  opacity: 0.9;
+}
+
+.overlay-content button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Specific button styles */
+.overlay-content button:nth-of-type(1) {
+  background: #3498db;
+  color: #fff;
+}
+
+.overlay-content button:nth-of-type(2) {
+  background: #2ecc71;
+  color: #fff;
+}
+
+.overlay-content button:nth-of-type(3) {
+  background: #95a5a6;
+  color: #fff;
+}
+
+/* Error message */
+.overlay-content p {
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
+
+/* Animation */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

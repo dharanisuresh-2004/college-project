@@ -1,0 +1,78 @@
+.add-book-page {
+  background: #0d0d0d;
+  color: #e0e0e0;
+  min-height: 100vh;
+  padding: 24px;
+  font-family: Arial, sans-serif;
+}
+
+.add-book-page h1 {
+  color: #39ff14;
+  text-shadow: 0 0 8px #39ff14, 0 0 16px #39ff14;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.add-book-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 12px #00ffff;
+}
+
+.add-book-form input,
+.add-book-form textarea,
+.add-book-form select {
+  padding: 10px;
+  border: 1px solid #00ffff;
+  border-radius: 6px;
+  background: #0d0d0d;
+  color: #fff;
+  outline: none;
+}
+
+.add-book-form input:focus,
+.add-book-form textarea:focus,
+.add-book-form select:focus {
+  box-shadow: 0 0 8px #00ffff, 0 0 16px #00ffff;
+}
+
+.add-book-form textarea {
+  grid-column: span 2;
+  min-height: 80px;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #00ffff;
+}
+
+.add-book-form button {
+  grid-column: span 2;
+  background: #ff00ff;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-book-form button:hover {
+  background: #ff33ff;
+  box-shadow: 0 0 8px #ff00ff, 0 0 16px #ff00ff;
+}
+
+.message {
+  margin-top: 16px;
+  text-align: center;
+  font-weight: 600;
+  color: #00ffff;
+  text-shadow: 0 0 6px #00ffff;
+}

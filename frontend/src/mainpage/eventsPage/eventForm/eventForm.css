@@ -1,0 +1,88 @@
+.event-form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 30px;
+    background: linear-gradient(135deg, #0a0e27 0%, #16213e 100%);
+    border: 2px solid #00ff88;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    color: #00ff88;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+    font-size: 14px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group textarea {
+    padding: 12px;
+    background: rgba(10, 14, 39, 0.8);
+    border: 2px solid #00ff88;
+    border-radius: 5px;
+    color: #00ff88;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 10px rgba(0, 255, 136, 0.1);
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="date"]:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #00ffff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), inset 0 0 10px rgba(0, 255, 255, 0.1);
+    color: #00ffff;
+}
+
+.form-group.checkbox {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group.checkbox label {
+    margin-bottom: 0;
+}
+
+.form-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #00ff88;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #00ff88 0%, #00ffff 100%);
+    color: #0a0e27;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.submit-btn:hover {
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+    transform: scale(1.02);
+}
+
+.submit-btn:active {
+    transform: scale(0.98);
+}

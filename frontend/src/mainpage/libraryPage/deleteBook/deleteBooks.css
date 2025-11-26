@@ -1,0 +1,75 @@
+.delete-books-page {
+  background: #0d0d0d;
+  color: #e0e0e0;
+  min-height: 100vh;
+  padding: 24px;
+  font-family: Arial, sans-serif;
+}
+
+.delete-books-page h1 {
+  color: #ff3131;
+  text-shadow: 0 0 8px #ff3131, 0 0 16px #ff3131;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.delete-books-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1a1a1a;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 12px #ff3131;
+}
+
+.delete-books-table th,
+.delete-books-table td {
+  padding: 12px;
+  border: 1px solid #333;
+  text-align: left;
+}
+
+.delete-books-table th {
+  background: #0d0d0d;
+  color: #ff3131;
+  text-shadow: 0 0 6px #ff3131;
+}
+
+.delete-books-table tr:nth-child(even) {
+  background: #141414;
+}
+
+.delete-books-table tr:hover {
+  background: #222;
+}
+
+.delete-books-table button {
+  background: #ff3131;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.delete-books-table button:hover {
+  background: #ff5c5c;
+  box-shadow: 0 0 8px #ff3131, 0 0 16px #ff3131;
+}
+
+/* Utility states */
+.loading {
+  color: #00ffff;
+  text-shadow: 0 0 6px #00ffff;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.error {
+  color: #ff3131;
+  text-shadow: 0 0 6px #ff3131;
+  text-align: center;
+  margin-top: 20px;
+}
