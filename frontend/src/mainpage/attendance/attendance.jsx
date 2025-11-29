@@ -1,104 +1,151 @@
 import React, { useEffect, useState } from "react";
+import "./attendancePage.css";
 
-// /C:/Users/justi/Documents/programs/college_management/frontend/src/mainpage/attendance/attendance.jsx
+export default function AttendancePage() {
+  const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-export default function Attendance() {
-    const [students, setStudents] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [busyId, setBusyId] = useState(null); // student_id of student being updated
+  // View overlay state
+  const [viewOverlayVisible, setViewOverlayVisible] = useState(false);
+  const [attendanceData, setAttendanceData] = useState(null);
 
-    useEffect(() => {
-        let mounted = true;
-        async function load() {
-            setLoading(true);
-            setError(null);
-            try {
-                const res = await fetch("http://localhost:8080/students/list/all");
-                if (!res.ok) throw new Error(`Fetch failed: ${res.statusText}`);
-                const data = await res.json();
-                if (mounted) setStudents(Array.isArray(data) ? data : []);
-            } catch (err) {
-                if (mounted) setError(err.message || "Failed to load students");
-            } finally {
-                if (mounted) setLoading(false);
-            }
-        }
-        load();
-        return () => (mounted = false);
-    }, []);
+  // Add attendance overlay state
+  const [addOverlayVisible, setAddOverlayVisible] = useState(false);
+  const [selectedStudentId, setSelectedStudentId] = useState(null);
+  const [absenceDays, setAbsenceDays] = useState("");
 
-    // Sends today's date (or whatever your API expects) to mark absent.
-    // Uses student_id as the identifier and optimistically increments no_of_absences.
-    async function markAbsent(studentId) {
-        setBusyId(studentId);
-        setError(null);
-        const today = new Date().toISOString(); // adjust payload if your API expects a different shape
-        try {
-            const res = await fetch(`http://localhost:8080/students/${encodeURIComponent(studentId)}/attendance`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ date: today }),
-            });
-            if (!res.ok) {
-                const text = await res.text();
-                throw new Error(text || res.statusText || "Failed to update attendance");
-            }
-            const updated = await res.json().catch(() => null);
-            setStudents(prev =>
-                prev.map(s =>
-                    s.student_id === studentId
-                        ? (updated ? updated : { ...s, no_of_absences: Number(s.no_of_absences || 0) + 1 })
-                        : s
-                )
-            );
-        } catch (err) {
-            setError(err.message || "Update failed");
-        } finally {
-            setBusyId(null);
-        }
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const fetchStudents = async () => {
+    try {
+      const res = await fetch("http://localhost:8080/students/list/all");
+      if (!res.ok) throw new Error("Failed to fetch students");
+      const data = await res.json();
+      setStudents(Array.isArray(data) ? data : []);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    if (loading) return <div>Loading students…</div>;
-    if (error) return <div style={{ color: "red" }}>Error: {error}</div>;
+  const openViewOverlay = async (studentId) => {
+    try {
+      const res = await fetch(`http://localhost:8080/students/${studentId}/attendance`);
+      if (!res.ok) throw new Error("Failed to fetch attendance");
+      const data = await res.json();
+      setAttendanceData(data);
+      setViewOverlayVisible(true);
+    } catch (err) {
+      alert(err.message);
+    }
+  };
 
-    return (
-        <div style={{ color: "white"}}>
-            <h2>Attendance</h2>
-            {students.length === 0 && <div>No students found.</div>}
-            <ul style={{ listStyle: "none", padding: 0 }}>
-                {students.map((s) => (
-                    <li
-                        key={s.student_id}
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            padding: "8px 0",
-                            borderBottom: "1px solid #eee",
-                        }}
-                    >
-                        <div>
-                            <div style={{ fontWeight: 600 }}>
-                                Student {s.student_id} — Semester: {s.semester ?? "—"}
-                            </div>
-                            <div style={{ fontSize: 12, color: "#555" }}>
-                                Attendance: {s.attendance_percentage ?? "—"} | Absences: {s.no_of_absences ?? 0}
-                            </div>
-                        </div>
-                        <button
-                            onClick={() => markAbsent(s.student_id)}
-                            disabled={busyId === s.student_id}
-                            style={{
-                                padding: "6px 10px",
-                                cursor: busyId === s.student_id ? "not-allowed" : "pointer",
-                            }}
-                        >
-                            {busyId === s.student_id ? "Updating…" : "Mark Absent"}
-                        </button>
-                    </li>
-                ))}
-            </ul>
+  const closeViewOverlay = () => {
+    setViewOverlayVisible(false);
+    setAttendanceData(null);
+  };
+
+  const openAddOverlay = (studentId) => {
+    setSelectedStudentId(studentId);
+    setAbsenceDays("");
+    setAddOverlayVisible(true);
+  };
+
+  const submitAbsenceDays = async () => {
+    if (!absenceDays) return;
+    try {
+      const res = await fetch(
+        `http://localhost:8080/students/${selectedStudentId}/absenceDays/${absenceDays}`,
+        { method: "PUT" }
+      );
+      if (!res.ok) throw new Error("Failed to update attendance");
+      await res.json();
+      setAddOverlayVisible(false);
+      setSelectedStudentId(null);
+      setAbsenceDays("");
+      fetchStudents(); // refresh list if needed
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  if (loading) return <div className="loading">Loading students...</div>;
+  if (error) return <div className="error">Error: {error}</div>;
+
+  return (
+    <div className="attendance-page">
+      <h1>Student Attendance</h1>
+      <table className="attendance-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Semester</th>
+            <th>View</th>
+            <th>Add Attendance</th>
+          </tr>
+        </thead>
+        <tbody>
+          {students.map((s) => (
+            <tr key={s.id}>
+              <td>{s.name}</td>
+              <td>{s.current_semester}</td>
+              <td>
+                <button onClick={() => openViewOverlay(s.id)}>View</button>
+              </td>
+              <td>
+                <button onClick={() => openAddOverlay(s.id)}>Add Attendance</button>
+              </td>
+            </tr>
+          ))}
+          {students.length === 0 && (
+            <tr>
+              <td colSpan={4} style={{ textAlign: "center" }}>
+                No students found
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+
+      {/* View overlay */}
+      {viewOverlayVisible && attendanceData && (
+        <div className="overlay">
+          <div className="overlay-content">
+            <h3>Attendance Details</h3>
+            <div className="details-grid">
+              <p><strong>Student ID:</strong> {attendanceData.student_id}</p>
+              <p><strong>Attendance %:</strong> {attendanceData.attendance_percentage}</p>
+              <p><strong>No. of Absences:</strong> {attendanceData.no_of_absences}</p>
+              <p><strong>Semester:</strong> {attendanceData.semester}</p>
+            </div>
+            <button onClick={closeViewOverlay}>Close</button>
+          </div>
         </div>
-    );
+      )}
+
+      {/* Add attendance overlay */}
+      {addOverlayVisible && (
+        <div className="overlay">
+          <div className="overlay-content">
+            <h3>Add Absence Days</h3>
+            <input
+              type="number"
+              placeholder="Number of absence days"
+              value={absenceDays}
+              onChange={(e) => setAbsenceDays(e.target.value)}
+            />
+            <div className="overlay-actions">
+              <button onClick={() => setAddOverlayVisible(false)}>Cancel</button>
+              <button onClick={submitAbsenceDays}>Submit</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
